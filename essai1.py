@@ -7,7 +7,6 @@
 ######################
 
 import tkinter as tk
-from turtle import width
 
 WIDTH = 800
 HEIGHT = 600
@@ -19,7 +18,8 @@ HEIGHT = 600
 
 
 
-###########################
+#############################
+# Programme Principal #
 racine = tk.Tk()
 racine.title("Puissance 4")
 
@@ -31,7 +31,7 @@ bouton_annuler = tk.Button(racine, text="Annuler")
 bouton_icone1 = tk.Button(racine, text = "Joueur 1")
 bouton_icone2 = tk.Button(racine, text = "Joueur 2" )
 
-#placements des widgets
+# Placements des widgets
 bouton_save.grid(row =8, column = 1)
 bouton_annuler.grid(row = 8, column = 5)
 bouton_icone1.grid(row = 0, column = 1)
