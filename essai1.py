@@ -6,7 +6,6 @@
 #https://github.com/uvsq22101985/projetIN200N
 ######################
 
-from curses.textpad import rectangle
 import tkinter as tk
 
 WIDTH = 350
@@ -21,15 +20,13 @@ color = "#18534F"
 ###########################
 
 def souris(event):
-    global rectangle
+    
+    global color
     posx = event.x
     posy = event.y
-
-    canvas.itemconfigure(rectangle, fill = "yellow")
-
-
-
-
+    
+    color = "yellow"
+    canvas.create_rectangle((i*largeur_case, j*hauteur_case), ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
 
 #############################
 # Programme Principal #
@@ -38,8 +35,6 @@ racine.title("Puissance 4")
 
 canvas = tk.Canvas(racine, width=WIDTH, height= HEIGHT, bg = '#226D68')
 canvas.bind('<Button-1>', souris)
-
-rectangle = canvas.create_rectangle((i*largeur_case, j*hauteur_case), ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
 
 # Creation grille de jeu
 
