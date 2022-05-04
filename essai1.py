@@ -20,7 +20,6 @@ color = "#18534F"
 ###########################
 
 def souris(event):
-    
     global color
     posx = event.x
     posy = event.y
