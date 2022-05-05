@@ -21,12 +21,18 @@ color = "#18534F"
 
 def souris(event):
     global color
+    global clic_rec
     posx = event.x
     posy = event.y
     
     color = "yellow"
     clic_rec = canvas.find_closest(posx, posy)
     canvas.itemconfig(clic_rec, fill = color)
+    #mouvement()
+
+#def mouvement():
+    canvas.move(clic_rec, 0 , 1)
+    canvas.after(20, mouvement)
 
 #############################
 # Programme Principal #
@@ -45,16 +51,23 @@ for i in range(5):
         
 # Boutons
 
-bouton_save = tk.Button(racine, text="Sauvegarder")
-bouton_annuler = tk.Button(racine, text="Annuler")
-bouton_icone1 = tk.Button(racine, text = "Joueur 1")
-bouton_icone2 = tk.Button(racine, text = "Joueur 2" )
+bouton_save = tk.Button(racine, text="Save")
+bouton_annuler = tk.Button(racine, text="Back")
+bouton_column1 = tk.Button(racine, text = "1")
+bouton_column2 = tk.Button(racine, text = "2")
+bouton_column3 = tk.Button(racine, text = "3")
+bouton_column4 = tk.Button(racine, text = "4")
+bouton_column5 = tk.Button(racine, text = "5")
+
 
 # Placements des widgets
 bouton_save.grid(row =8, column = 1)
 bouton_annuler.grid(row = 8, column = 5)
-bouton_icone1.grid(row = 0, column = 1)
-bouton_icone2.grid(row = 0, column = 5)
+bouton_column1.grid(row = 0, column = 1)
+bouton_column2.grid(row = 0, column = 2)
+bouton_column3.grid(row = 0, column = 3)
+bouton_column4.grid(row = 0, column = 4)
+bouton_column5.grid(row = 0, column = 5)
 canvas.grid(row=1, column=1, columnspan=5)
 
 
