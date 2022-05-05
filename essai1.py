@@ -25,7 +25,8 @@ def souris(event):
     posy = event.y
     
     color = "yellow"
-    canvas.create_rectangle((i*largeur_case, j*hauteur_case), ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
+    clic_rec = canvas.find_closest(posx, posy)
+    canvas.itemconfig(clic_rec, fill = color)
 
 #############################
 # Programme Principal #
@@ -39,7 +40,7 @@ canvas.bind('<Button-1>', souris)
 
 for i in range(5):
     for j in range(7):
-        canvas.create_rectangle((i*largeur_case, j*hauteur_case),
+        rectangle = canvas.create_rectangle((i*largeur_case, j*hauteur_case),
                 ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
         
 # Boutons
