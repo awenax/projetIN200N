@@ -7,9 +7,12 @@
 ######################
 
 # Variables
+from cProfile import label
 import tkinter as tk
 from tkinter import ttk
 import random
+
+from setuptools import Command
 
 WIDTH = 560
 HEIGHT = 560
@@ -19,7 +22,6 @@ color = "#18534F"
 player_1 = 1
 player_2 = 2
 grille = [[0] * 6 for i in range(7)]
-y = 0
 
 #############################
 # Fonctions
@@ -50,13 +52,8 @@ def playable_grid(player_colour, X, grille):
         y -=1
     if(grille[y][X] == 0):
         grille[y][X] = player_colour
-    return y
-
-def player_begin():
-    global player_1, player_2
+    return y 
     
-    
-
 
 #############################
 # Programme Principal #
@@ -71,6 +68,16 @@ for i in range(7):
     for j in range(6):
         rectangle = canvas.create_rectangle((i*largeur_case, j*hauteur_case),
                 ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
+
+# Determination du joueur qui commence
+couleurs = ["red", "yellow"]
+choice_colour = random.choice(couleurs)
+if choice_colour == "red":
+    player_turn = "Player 1"
+else:
+    player_turn = "Player 2"
+
+beginner = tk.Label(racine, text = player_turn, fg = choice_colour, bg = "#535953")
 
 # Boutons
 bouton_setgrid = ttk.Button(racine, text = "Rejouer", command=set_grid(grille))
@@ -92,5 +99,6 @@ bouton_column4.grid(row = 0, column = 4)
 bouton_column5.grid(row = 0, column = 5)
 bouton_column6.grid(row = 0, column = 6)
 bouton_column7.grid(row = 0, column = 7)
+beginner.grid(row=8, column = 3, columnspan=3)
 canvas.grid(row=1, column=1, columnspan=7)
 racine.mainloop()
