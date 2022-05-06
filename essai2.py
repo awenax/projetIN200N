@@ -7,28 +7,28 @@
 ######################
 
 # Variables
-from cProfile import label
+from pickle import NONE
 import tkinter as tk
 from tkinter import ttk
 import random
-
-from setuptools import Command
 
 WIDTH = 560
 HEIGHT = 560
 largeur_case = WIDTH // 7
 hauteur_case = HEIGHT // 6
 color = "#18534F"
-player_1 = 1
-player_2 = 2
 grille = [[0] * 6 for i in range(7)]
+grille_save = grille
+winner = NONE
+
 
 #############################
 # Fonctions
 def get_button(b):
     global X
     X = b-1
-    print(X)
+    changement_joueur()
+    return X
 
 def set_grid(grille):
     global X, y
@@ -44,16 +44,27 @@ def set_grid(grille):
 
 def playable_grid(player_colour, X, grille):
     global y
-    """Fonction qui va lancer le jeu et verifier 
+    """Fonction qui va lancer le jeu et verifier, ligne par ligne,
     dans la colonne choisie par le joueur
-    s'il n'y a pas d'obstacle"""
+    s'il y a ou non des obstacles"""
     y = 5
     while(grille[y][X] != 0):
         y -=1
     if(grille[y][X] == 0):
         grille[y][X] = player_colour
     return y 
-    
+
+def changement_joueur():
+    global player_colour, player_turn
+    while winner == NONE:
+        if player_turn == "Player 1":
+            player_turn = "Player 2"
+            player_colour = "yellow"
+        else:
+            player_turn = "Player 1"
+            player_colour = "red"
+        beginner = tk.Label(racine, text = player_turn, fg = choice_colour, bg = "#535953")
+        
 
 #############################
 # Programme Principal #
@@ -74,10 +85,13 @@ couleurs = ["red", "yellow"]
 choice_colour = random.choice(couleurs)
 if choice_colour == "red":
     player_turn = "Player 1"
+    player_colour = "red"
 else:
     player_turn = "Player 2"
+    player_colour = "yellow"
 
 beginner = tk.Label(racine, text = player_turn, fg = choice_colour, bg = "#535953")
+
 
 # Boutons
 bouton_setgrid = ttk.Button(racine, text = "Rejouer", command=set_grid(grille))
@@ -101,4 +115,6 @@ bouton_column6.grid(row = 0, column = 6)
 bouton_column7.grid(row = 0, column = 7)
 beginner.grid(row=8, column = 3, columnspan=3)
 canvas.grid(row=1, column=1, columnspan=7)
+
+playable_grid(player_colour, X, grille)
 racine.mainloop()
