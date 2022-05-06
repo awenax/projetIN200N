@@ -19,16 +19,23 @@ color = "#18534F"
 ###FONCTIONS###
 ###########################
 
-def souris(event):
-    global color
-    global clic_rec
-    posx = event.x
-    posy = event.y
+#def souris(event):
+    #global color
+    #global clic_rec
+    #posx = event.x
+    #posy = event.y
     
-    color = "yellow"
-    clic_rec = canvas.find_closest(posx, posy)
-    canvas.itemconfig(clic_rec, fill = color)
+    #color = "yellow"
+    #clic_rec = canvas.find_closest(posx, posy)
+    #canvas.itemconfig(clic_rec, fill = color)
     #mouvement()
+
+def clic_bouton():
+    color = "yellow"
+    jeton = canvas.itemconfig(rectangle, row = 7)
+    canvas.itemconfig(jeton, fill = color)
+
+
 
 #def mouvement():
     #canvas.move(clic_rec, 0 , 1)
@@ -40,7 +47,7 @@ racine = tk.Tk()
 racine.title("Puissance 4")
 
 canvas = tk.Canvas(racine, width=WIDTH, height= HEIGHT, bg = '#226D68')
-canvas.bind('<Button-1>', souris)
+#canvas.bind('<Button-1>', souris)
 
 # Creation grille de jeu
 
@@ -53,7 +60,7 @@ for i in range(7):
 
 bouton_save = tk.Button(racine, text="Save")
 bouton_annuler = tk.Button(racine, text="Back")
-bouton_column1 = tk.Button(racine, text = "1")
+bouton_column1 = tk.Button(racine, text = "1", command= clic_bouton)
 bouton_column2 = tk.Button(racine, text = "2")
 bouton_column3 = tk.Button(racine, text = "3")
 bouton_column4 = tk.Button(racine, text = "4")
