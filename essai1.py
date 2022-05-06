@@ -30,16 +30,21 @@ color = "#18534F"
     #canvas.itemconfig(clic_rec, fill = color)
     #mouvement()
 
-def clic_bouton():
-    color = "yellow"
-    jeton = canvas.itemconfig(rectangle, row = 7)
-    canvas.itemconfig(jeton, fill = color)
+
+def playable_grid(player_colour, X, grille):
+    global y
+    """Fonction qui va lancer le jeu et verifier, ligne par ligne,
+    dans la colonne choisie par le joueur
+    s'il y a ou non des obstacles"""
+    y = 5
+    while(grille[y][X] != 0):
+        y -=1
+    if(grille[y][X] == 0):
+        grille[y][X] = canvas.create_oval((largeur_case, hauteur_case), fill=player_colour)
+    return y 
 
 
-
-#def mouvement():
-    #canvas.move(clic_rec, 0 , 1)
-    #canvas.after(20, mouvement)
+playable_grid(player_colour, X, grille)
 
 #############################
 # Programme Principal #
