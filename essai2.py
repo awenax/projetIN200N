@@ -10,28 +10,63 @@ import tkinter as tk
 from tkinter import ttk
 import random
 
+from pkg_resources import get_default_cache
+
 WIDTH = 560
 HEIGHT = 560
 largeur_case = WIDTH // 7
 hauteur_case = HEIGHT // 6
 color = "#18534F"
 player_1 = 1
-player_2 = 2
-grille = [[0] * 7 for i in range(8)]
+player_2 = 2 
+grille = [[0] * 7 for i in range(6)]                # le tableau fait 7 colonnes de 6 lignes
 grille_save = grille
+gagne = False
+lst = []
 
 
 #############################
 # Fonctions
 def get_button(b):
-    global X
+    global gagne
+    
+    if gagne:
+        return
     X = b-1
     changement_joueur()
-    playable_grid(player_colour, X, grille)
-    return X
+    y = playable_grid(player_colour, X, grille)
+    nb_jetons = 0
+    # test alignement vertical
+    if (y < 3):                 # pas la peine de tester en vertical si il y a moins de 4 jetons dans la colonne
+        for i in range (5):
+           if grille [i][X] == grille [i+1][X] and grille [i][X] != 0:
+                nb_jetons += 1
+           else:
+             nb_jetons = 0
+        if nb_jetons == 3:             # 3 parce que la 1ère occurence n'est pas comptée
+           print ("gagné vertical")
+           gagne = True
+    nb_jetons = 0
+    # test alignement horizontal
+    for i in range (6):
+        if nb_jetons == 3:              # 3 parce que la 1ère occurence n'est pas comptée
+            print ("gagné horizontal")
+            gagne = True
+            break
+        if grille [y][i] == grille [y][i+1] and grille [y][i] != 0:
+            nb_jetons += 1
+        else:
+            nb_jetons = 0
+    
+    print ("toto")
+    #
+    # test alignement diagonal
+    print("test alignement diagonal")
 
+    if gagne == True:
+        print ("Partie terminée : le vainqueur est ", player_turn )
+ 
 def set_grid(grille):
-    global X, y
     """Fonction qui remets la grille à 0"""
     X, y = 0, 0
     while(grille[y][X]): 
@@ -43,15 +78,25 @@ def set_grid(grille):
     return(grille)
 
 def playable_grid(player_colour, X, grille):
-    global y
     """Fonction qui va lancer le jeu et verifier, ligne par ligne,
     dans la colonne choisie par le joueur
     s'il y a ou non des obstacles"""
+    global lst
     y = 5
+    
     while(grille[y][X] != 0):
         y -=1
+    if (y < 0):
+        return y
     if(grille[y][X] == 0):
-        grille[y][X] = canvas.create_oval(((largeur_case, hauteur_case),(largeur_case*2, hauteur_case*2)) , fill=player_colour)
+        gauche = largeur_case * X
+        droite = gauche + largeur_case
+        haut = hauteur_case * y
+        bas = haut + hauteur_case
+        # mettre dans une variable la référence à l'objet que l'on va créeer pour pouvoir le supprimer ensuite pour le undo
+        obj = canvas.create_oval(((gauche, haut),(droite, bas)) , fill=player_colour)
+        grille[y][X] = player_colour
+        lst.append(player_colour + "," + str(X) + "," + str(y) + "," + str(obj) )
     return y
 
 def beginner_player():
@@ -60,10 +105,10 @@ def beginner_player():
     couleurs = ["red", "yellow"]
     choice_colour = random.choice(couleurs)
     if choice_colour == "red":
-        player_turn = "Player 1"
+        player_turn = "Joueur 1"
         player_colour = "red"
     else:
-        player_turn = "Player 2"
+        player_turn = "Joueur 2"
         player_colour = "yellow"
     beginner = tk.Label(racine, text = player_turn, fg = player_colour, bg = "#535953")
     beginner.grid(row=8, column = 3, columnspan=3)
@@ -72,11 +117,11 @@ def beginner_player():
 def changement_joueur():
     global player_colour, player_turn
     global beginner
-    if player_turn == "Player 1":
-        player_turn = "Player 2"
+    if player_turn == "Joueur 1":
+        player_turn = "Joueur 2"
         player_colour = "yellow"
     else:
-        player_turn = "Player 1"
+        player_turn = "Joueur 1"
         player_colour = "red"
     beginner = tk.Label(racine, text = player_turn, fg = player_colour, bg = "#535953")
     beginner.grid(row=8, column = 3, columnspan=3)
