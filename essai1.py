@@ -31,20 +31,7 @@ color = "#18534F"
     #mouvement()
 
 
-def playable_grid(player_colour, X, grille):
-    global y
-    """Fonction qui va lancer le jeu et verifier, ligne par ligne,
-    dans la colonne choisie par le joueur
-    s'il y a ou non des obstacles"""
-    y = 5
-    while(grille[y][X] != 0):
-        y -=1
-    if(grille[y][X] == 0):
-        grille[y][X] = canvas.create_oval((largeur_case, hauteur_case), fill=player_colour)
-    return y 
 
-
-playable_grid(player_colour, X, grille)
 
 #############################
 # Programme Principal #
@@ -65,7 +52,7 @@ for i in range(7):
 
 bouton_save = tk.Button(racine, text="Save")
 bouton_annuler = tk.Button(racine, text="Back")
-bouton_column1 = tk.Button(racine, text = "1", command= clic_bouton)
+bouton_column1 = tk.Button(racine, text = "1")
 bouton_column2 = tk.Button(racine, text = "2")
 bouton_column3 = tk.Button(racine, text = "3")
 bouton_column4 = tk.Button(racine, text = "4")
