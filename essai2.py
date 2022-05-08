@@ -78,6 +78,24 @@ def set_grid(grille):
         y +=1
     return(grille)
 
+def annuler_coup():
+    """Fonction qui permets de revenir un coup en arriere"""
+
+
+def load():
+    """Fonction qui permets de charger une partie déjà sauvegardée"""
+
+
+def save():
+    """Fonction qui permet de sauvegarder une partie en cours"""
+
+
+def new_game():
+    """Fonction qui permet de démarrer une nouvelle partie """
+    # la fonction set_grille au dessus peut aider pour remetter la grille à zéro, 
+    # elle n'est pas fonctionnelle mais peut etre utile
+
+
 def playable_grid(player_colour, X, grille):
     """Fonction qui va lancer le jeu et verifier, ligne par ligne,
     dans la colonne choisie par le joueur
@@ -144,10 +162,10 @@ for i in range(7):
                 ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
 
 # Boutons
-bouton_annuler = ttk.Button(racine, text = "Retour")
-bouton_save = ttk.Button(racine, text="Sauvegarder")
-bouton_load = ttk.Button(racine, text="Charger")
-bouton_newgame = ttk.Button(racine, text = "Nouvelle partie")
+bouton_annuler = ttk.Button(racine, text = "Retour", command=lambda:annuler_coup)
+bouton_save = ttk.Button(racine, text="Sauvegarder", command=lambda: save)
+bouton_load = ttk.Button(racine, text="Charger", command=lambda:load)
+bouton_newgame = ttk.Button(racine, text = "Nouvelle partie", command=lambda: new_game)
 bouton_column1 = ttk.Button(racine, text = "1", command=lambda:get_button(1))
 bouton_column2 = ttk.Button(racine, text = "2", command=lambda:get_button(2))
 bouton_column3 = ttk.Button(racine, text = "3", command=lambda:get_button(3))
