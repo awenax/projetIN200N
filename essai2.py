@@ -4,6 +4,8 @@
 #RODRIGUEZ Diana
 #SALIC Awena
 #https://github.com/uvsq22101985/projetIN200N
+
+
 ######################
 # Variables
 import tkinter as tk
@@ -19,7 +21,7 @@ hauteur_case = HEIGHT // 6
 color = "#18534F"
 player_1 = 1
 player_2 = 2 
-grille = [[0] * 7 for i in range(6)]                # le tableau fait 7 colonnes de 6 lignes
+grille = [[0] * 7 for i in range(6)]  # le tableau fait 7 colonnes de 6 lignes
 grille_save = grille
 gagne = False
 lst = []
@@ -59,7 +61,6 @@ def get_button(b):
             nb_jetons = 0
     
     print ("toto")
-    #
     # test alignement diagonal
     print("test alignement diagonal")
 
@@ -143,7 +144,10 @@ for i in range(7):
                 ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
 
 # Boutons
-bouton_setgrid = ttk.Button(racine, text = "Rejouer", command= set_grid(grille))
+bouton_annuler = ttk.Button(racine, text = "Retour")
+bouton_save = ttk.Button(racine, text="Sauvegarder")
+bouton_load = ttk.Button(racine, text="Charger")
+bouton_newgame = ttk.Button(racine, text = "Nouvelle partie")
 bouton_column1 = ttk.Button(racine, text = "1", command=lambda:get_button(1))
 bouton_column2 = ttk.Button(racine, text = "2", command=lambda:get_button(2))
 bouton_column3 = ttk.Button(racine, text = "3", command=lambda:get_button(3))
@@ -154,7 +158,10 @@ bouton_column7 = ttk.Button(racine, text = "7", command=lambda:get_button(7))
 
 
 # Placements des widgets/boutons
-bouton_setgrid.grid(row = 8, column = 1, columnspan=1)
+bouton_annuler.grid(row = 8, column = 1, columnspan=1)
+bouton_save.grid(row =8, column = 7, columnspan= 1)
+bouton_load.grid(row = 8, column = 6, columnspan= 1)
+bouton_newgame.grid(row = 8, column = 2, columnspan=1)
 bouton_column1.grid(row = 0, column = 1)
 bouton_column2.grid(row = 0, column = 2)
 bouton_column3.grid(row = 0, column = 3)
