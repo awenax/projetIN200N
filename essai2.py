@@ -33,13 +33,15 @@ def get_button(b):
     global gagne
     global lst
 
-    if gagne: return
+    if gagne: 
+        return
     joueur = player_turn
     x = b-1
     y = playable_grid(player_colour, x, grille)
     # pas la peine de tester les alignements si il y a moins de 7 jetons dans la grille
     changement_joueur()
-    if len(lst) < 7: return
+    if len(lst) < 7: 
+        return
 
     gagne = test_alignement (x, y)
     if gagne:
@@ -90,7 +92,7 @@ def test_alignement(x, y):
 
     nb_jetons = 0
     # test alignement diagonal ascendant de droite à gauche
-    j = y + 3;
+    j = y + 3
     for i in range(x+3,x-3, -1):
         if i >= 0 and i < 6:
            if j >= 0 and j < 6:
@@ -117,7 +119,8 @@ def annuler_coup():
     global gagne
     lst_lue = []
     taille = len (lst)
-    if taille == 0: return
+    if taille == 0: 
+        return
     ligne = lst[len(lst) - 1]
     lst_lue = ligne.split(",")
     x = int(lst_lue[1])
@@ -137,14 +140,12 @@ def load():
     global lst
     x = 0
     y = 0
-    filetypes = (
-        ('Fichier texte', '*.txt'),
-        ('Tous les fichiers', '*.*')
-    )
+    filetypes = (('Fichier texte', '*.txt'), ('Tous les fichiers', '*.*'))
     lst_lue = []
     # Affiche la fenêtre pour sélectionner le fichier
     filename = fd.askopenfile(filetypes=filetypes)
-    if filename is None: return               # Pas de fichier choisi
+    if filename is None: 
+        return               # Pas de fichier choisi
     f = open (filename.name, "r")
     first_line = True
     last_line = False
@@ -193,7 +194,8 @@ def save():
     )
     # Affiche la fenêtre pour sélectionner le fichier
     filename = fd.asksaveasfilename(filetypes=filetypes)
-    if filename == "" or filename is None: return               # Pas de fichier choisi
+    if filename == "" or filename is None: 
+        return               # Pas de fichier choisi
     f = open (filename, "w")
     f.write("Fichier Puissance 4\n")
     for i in range (len (lst)):
