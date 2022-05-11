@@ -12,15 +12,11 @@ from tkinter import messagebox as mb
 from tkinter import filedialog as fd
 import random
 
-from pkg_resources import get_default_cache
-
 WIDTH = 560
 HEIGHT = 560
 largeur_case = WIDTH // 7
 hauteur_case = HEIGHT // 6
 color = "#18534F"
-player_1 = 1
-player_2 = 2 
 player_turn = ""
 grille = [[0] * 7 for i in range(6)]                # le tableau fait 7 colonnes de 6 lignes
 gagne = False
@@ -77,7 +73,7 @@ def test_alignement(x, y):
     # En fait, le cercle dessiné se trouve au centre de celle-ci
 
     nb_jetons = 0
-    # test alignement diagonal ascendant de gauche à droite
+    # test alignement diagonal ascendant de gauche à droite (qui monte)
     j = y + 3
     for i in range(x-3,x+3):
         if i >= 0 and i < 6:
@@ -152,7 +148,8 @@ def load():
     for line in f:
         if first_line:
             # Si le fichier ne commence pas par Fichier Puissance 4, ce n'est pas une sauvegarde. Fait pour éviter de charger n'importe quel fichier
-            if line != "Fichier Puissance 4\n": return
+            if line != "Fichier Puissance 4\n": 
+                return
             first_line = False
             canvas.delete("all")
             set_grid (grille)
@@ -188,10 +185,7 @@ def save():
     global gagne
     global lst
 
-    filetypes = (
-        ('Fichier texte', '*.txt'),
-        ('Tous les fichiers', '*.*')
-    )
+    filetypes = (('Fichier texte', '*.txt'), ('Tous les fichiers', '*.*'))
     # Affiche la fenêtre pour sélectionner le fichier
     filename = fd.asksaveasfilename(filetypes=filetypes)
     if filename == "" or filename is None: 
@@ -230,7 +224,7 @@ def playable_grid(player_colour, x, grille):
     while(grille[y][x] != 0):
         y -=1
         if (y < 0):
-            return y
+            return y # permet au jeton de ne pas sortir de la grille
     if(grille[y][x] == 0):
         gauche = largeur_case * x
         droite = gauche + largeur_case
